@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+.pytest_cache/
+*.py[cod]
+.env
+data/raw/*
+data/bronze/*
+data/silver/*
+data/gold/*
+!data/*/.gitkeep
+warehouse/*
+artifacts/*
+logs/*
+.DS_Store
