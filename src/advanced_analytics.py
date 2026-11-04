@@ -22,8 +22,9 @@ def _read():
 def demand_forecast(horizon=8):
     """Weekly category-level order-item demand; recursive lag-feature RF forecast."""
     _,items=_read()
+    items["order_purchase_timestamp"]=pd.to_datetime(items["order_purchase_timestamp"],errors="coerce",utc=True).dt.tz_convert(None)
     items=items.dropna(subset=["order_purchase_timestamp","category"])
-    items["week"]=items.order_purchase_timestamp.dt.tz_convert(None).dt.to_period("W").dt.start_time
+    items["week"]=items["order_purchase_timestamp"].dt.to_period("W").dt.start_time
     top=items.category.value_counts().head(8).index.tolist()
     rows=[]
     for category in top:
