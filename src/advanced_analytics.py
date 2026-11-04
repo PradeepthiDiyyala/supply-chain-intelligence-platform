@@ -32,8 +32,8 @@ def demand_forecast(horizon=8):
         idx=pd.date_range(y.index.min(),y.index.max(),freq="W-MON")
         y=y.reindex(idx,fill_value=0).astype(float)
         frame=pd.DataFrame({"y":y})
-        for lag in [1,2,3,4,8,12, rolling:=None]:
-            if lag is not None: frame[f"lag_{lag}"]=frame.y.shift(lag)
+        for lag in [1,2,3,4,8,12]:
+            frame[f"lag_{lag}"]=frame.y.shift(lag)
         frame["roll4"]=frame.y.shift(1).rolling(4).mean()
         frame["weekofyear"]=frame.index.isocalendar().week.astype(int)
         train=frame.dropna()
