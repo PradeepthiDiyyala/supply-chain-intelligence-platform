@@ -38,3 +38,13 @@ Target: late delivery among delivered orders. Features use order-time characteri
 - Trained a chronologically evaluated, leakage-aware late-delivery risk model and surfaced operational KPIs through Streamlit.
 
 Historical 2016–2018 dataset; no live carrier feed, streaming bus or cloud SLA. Add measured metrics only after your own successful run.
+
+
+## Advanced decision-support modules
+The full pipeline also generates:
+- **Weekly demand forecasting:** recursive Random Forest forecasts for the eight largest product categories, using historical weekly order-item counts and lag/rolling features.
+- **Seller scorecards:** historical late-delivery rate, order volume, freight and item-value indicators.
+- **Anomaly detection:** Isolation Forest flags unusual item-level price/freight combinations for investigation; flags are not proof of fraud.
+- **Inventory replenishment simulator:** calculates reorder point and pack-size-rounded suggested order quantity from user-entered stock, demand and lead time. Olist does not contain on-hand inventory, so these are explicitly hypothetical inputs.
+
+Run all modules with `python -m src.pipeline --all`, then launch `streamlit run app.py`. Outputs are saved under `artifacts/`. The forecast is based on historical data and is not a live demand feed.
